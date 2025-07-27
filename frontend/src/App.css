@@ -1,0 +1,378 @@
+body {
+  background-color: #f0f2f5;
+  color: #333;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.App-header {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+.App-header h1 {
+  color: #1d3557;
+  margin: 0 0 10px 0;
+}
+
+.recorder-container {
+  margin-bottom: 20px;
+}
+
+.record-button {
+  background-color: #457b9d;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 18px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  font-weight: bold;
+}
+
+.record-button:hover:not(:disabled) {
+  background-color: #1d3557;
+}
+
+.record-button:disabled {
+  background-color: #a8dadc;
+  cursor: not-allowed;
+}
+
+.record-button.recording {
+  background-color: #e63946;
+  animation: pulse 1.5s infinite;
+}
+
+.recording-indicator {
+  margin-top: 10px;
+  color: #e63946;
+  font-weight: bold;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.processing-container {
+  margin-top: 20px;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border-left-color: #1d3557;
+  animation: spin 1s ease infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error {
+  color: #e63946;
+  background-color: #fce8e6;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  border: 1px solid #e63946;
+}
+
+.results-container {
+  text-align: left;
+  margin-top: 30px;
+}
+
+.result-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+}
+
+.result-card h3 {
+  margin-top: 0;
+  color: #1d3557;
+  border-bottom: 2px solid #a8dadc;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.result-card p {
+  white-space: pre-wrap;
+  line-height: 1.6;
+  color: #333;
+}
+
+.result-card pre {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  line-height: 1.5;
+  color: #212529;
+}
+
+/* Estilos para o Card de Transcrição */
+.transcription-card {
+  text-align: left;
+  background-color: #e9f5ff;
+  border-left: 5px solid #1d3557;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 5px;
+  font-style: italic;
+  color: #333;
+}
+
+/* Estilos para o Formulário de Laudo */
+.laudo-form {
+  text-align: left;
+}
+
+.form-section {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+}
+
+.form-section h3 {
+  margin-top: 0;
+  color: #1d3557;
+  border-bottom: 2px solid #a8dadc;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #457b9d;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+  width: 98%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: inherit;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.save-button {
+  background-color: #2a9d8f;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.save-button:hover {
+  background-color: #264653;
+}
+
+/* --- INÍCIO: NOVOS ESTILOS PARA O PDF E FORMULÁRIO --- */
+
+/* Esconde o container do molde do PDF */
+.pdf-preload-container {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+}
+
+/* Formatação do conteúdo que irá para o PDF */
+.report-container-for-pdf {
+  width: 210mm; /* Largura A4 */
+  min-height: 297mm; /* Altura A4 */
+  padding: 20mm;
+  background-color: white;
+  color: #333;
+  font-family: 'Times New Roman', Times, serif;
+  box-sizing: border-box;
+  font-size: 12pt;
+}
+
+.report-header {
+  text-align: center;
+  padding-bottom: 8mm;
+  margin-bottom: 10mm;
+}
+
+.report-header h1 {
+  font-size: 20pt;
+  margin: 0;
+  font-weight: bold;
+}
+
+.report-header p {
+  font-size: 10pt;
+  margin-top: 5px;
+}
+
+.report-section {
+  margin-bottom: 10mm;
+}
+
+.report-section h2 {
+  font-size: 14pt;
+  font-weight: bold;
+  color: #000;
+  border-bottom: 1px solid #555;
+  padding-bottom: 2mm;
+  margin-bottom: 5mm;
+}
+
+.report-section p {
+  line-height: 1.5;
+  text-align: justify;
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.report-table .orgao-titulo {
+  font-weight: bold;
+  width: 30%; /* Largura da coluna do nome do órgão */
+  vertical-align: top;
+  padding-right: 5mm;
+  padding-bottom: 4mm;
+}
+
+.report-table .orgao-descricao {
+  width: 70%; /* Largura da coluna da descrição */
+  vertical-align: top;
+  text-align: justify;
+  padding-bottom: 4mm;
+}
+
+.report-footer {
+  margin-top: 40mm;
+  text-align: center;
+}
+
+.assinatura-linha {
+  display: inline-block;
+  border-top: 1px solid #333;
+  width: 60%;
+  padding-top: 5px;
+}
+
+/* Estilos para o Card de Transcrição */
+.transcription-card {
+  text-align: left;
+  background-color: #e9f5ff;
+  border-left: 5px solid #1d3557;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 5px;
+  font-style: italic;
+  color: #333;
+}
+
+/* Estilos para o Formulário de Laudo (visível) */
+.laudo-form {
+  text-align: left;
+}
+
+.form-section {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+}
+
+.form-section h3 {
+  margin-top: 0;
+  color: #1d3557;
+  border-bottom: 2px solid #a8dadc;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #457b9d;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+  width: 98%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: inherit;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.save-button {
+  background-color: #2a9d8f;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.save-button:hover {
+  background-color: #264653;
+}
+
+/* --- FIM: NOVOS ESTILOS --- */
