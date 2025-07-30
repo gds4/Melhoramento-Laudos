@@ -13,9 +13,6 @@ COPY requirements.txt .
 # Instala as dependências do Python
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Baixa o modelo de linguagem do spaCy durante a construção da imagem
-RUN python -m spacy download pt_core_news_sm
-
 # Copia todo o código da aplicação para o diretório de trabalho no container
 COPY . .
 
@@ -23,4 +20,4 @@ COPY . .
 EXPOSE 5000
 
 # Comando para iniciar o servidor de produção Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "run:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--timeout", "120", "run:app"]

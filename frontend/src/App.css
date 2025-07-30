@@ -376,3 +376,111 @@ body {
 }
 
 /* --- FIM: NOVOS ESTILOS --- */
+
+/* Estilos para o container de um campo de formulário com botão de ditar */
+.form-group-with-dictate {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-group-with-dictate .form-group {
+  flex-grow: 1; /* Faz o campo de texto ocupar o máximo de espaço */
+}
+
+/* Estilos para o botão de ditar */
+.dictate-button {
+  background-color: #f0f2f5;
+  border: 1px solid #ccc;
+  border-radius: 50%; /* Botão redondo */
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0; /* Impede que o botão encolha */
+  margin-top: 15px; /* Alinha com o campo de texto */
+}
+
+.dictate-button:hover:not(:disabled) {
+  background-color: #e9ecef;
+  border-color: #a8dadc;
+}
+
+.dictate-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Estilo para quando o botão está gravando */
+.dictate-button.recording {
+  background-color: #e63946;
+  color: white;
+  border-color: #e63946;
+  animation: pulse-mic 1.5s infinite;
+}
+
+@keyframes pulse-mic {
+  0% {
+    box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(230, 57, 70, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(230, 57, 70, 0);
+  }
+}
+
+/* Container para um campo de formulário com botões de ação */
+.form-group-with-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-group-with-actions .form-group {
+  flex-grow: 1;
+}
+
+/* Estilo base para botões de ação (ditar, melhorar, etc.) */
+.action-button {
+  background-color: #f0f2f5;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  margin-top: 15px;
+}
+
+.action-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Estilo específico para o botão de melhorar */
+.improve-button {
+  background-color: #e0fbfc;
+  border-color: #98c1d9;
+}
+
+.improve-button:hover:not(:disabled) {
+  background-color: #cce3de;
+}
+
+/* Estilo para quando está carregando a melhoria */
+.improve-button:disabled {
+    opacity: 1;
+    cursor: wait;
+    animation: spin 1s linear infinite;
+}

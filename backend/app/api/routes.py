@@ -25,3 +25,16 @@ def process_audio():
     final_json_data['transcricao_original'] = original_text
 
     return jsonify(final_json_data), 200
+
+
+@api_bp.route('/improve-text', methods=['POST'])
+def improve_text():
+    data = request.get_json()
+    if not data or 'text' not in data:
+        return jsonify({"error": "Nenhum texto foi enviado para melhoria"}), 400
+
+    text_to_improve = data['text']
+    
+    improved_text = nlp_service.improve_single_text_with_ia(text_to_improve)
+    
+    return jsonify({"improved_text": improved_text}), 200

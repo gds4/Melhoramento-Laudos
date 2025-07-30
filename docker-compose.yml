@@ -11,7 +11,7 @@ services:
       - "5000:5000"   # Mapeia a porta 5000 do host para a porta 5000 do container
     volumes:
       - ./backend:/app # Espelha o código local no container para desenvolvimento (opcional, mas útil)
-    command: gunicorn --bind 0.0.0.0:5000 --reload run:app # O --reload reinicia o servidor ao mudar o código
+    command: gunicorn --bind 0.0.0.0:5000 --timeout 120 --reload run:app # O --reload reinicia o servidor ao mudar o código
 
   # Serviço do Frontend (React + Nginx)
   frontend:
