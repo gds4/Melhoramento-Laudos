@@ -4,4 +4,4 @@ SpeechRecognition
 pydub
 python-dotenv
 gunicorn
-requests
+openai

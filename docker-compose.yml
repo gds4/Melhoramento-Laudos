@@ -1,23 +1,25 @@
 version: '3.8'
 
 services:
-  # Serviço do Backend (Flask + Gunicorn)
+
   backend:
-    build: ./backend  # Indica para construir a imagem usando o Dockerfile na pasta ./backend
+    build: ./backend
     container_name: laudo_backend
     env_file:
-      - ./.env        # Carrega as variáveis de ambiente (a chave da API) do arquivo .env
+      - ./.env       
+    environment:
+      - PYTHONUNBUFFERED=1 
     ports:
-      - "5000:5000"   # Mapeia a porta 5000 do host para a porta 5000 do container
+      - "5000:5000"
     volumes:
-      - ./backend:/app # Espelha o código local no container para desenvolvimento (opcional, mas útil)
-    command: gunicorn --bind 0.0.0.0:5000 --timeout 120 --reload run:app # O --reload reinicia o servidor ao mudar o código
-
+      - ./backend:/app
+    
+    command: gunicorn --bind 0.0.0.0:5000 --workers ${GUNICORN_WORKERS} --timeout ${GUNICORN_TIMEOUT}  --log-level=debug --reload run:app
   # Serviço do Frontend (React + Nginx)
   frontend:
-    build: ./frontend # Indica para construir a imagem usando o Dockerfile na pasta ./frontend
+    build: ./frontend 
     container_name: laudo_frontend
     ports:
-      - "3000:80"     # Mapeia a porta 3000 do host para a porta 80 do container (onde o Nginx está escutando)
+      - "3000:80"     
     depends_on:
-      - backend       # Garante que o serviço de backend seja iniciado antes do frontend (boa prática)
+      - backend       

@@ -90,7 +90,7 @@ const LaudoForm = ({ laudoData }) => {
         </div>
       </div>
       
-      {/* --- FORMULÁRIO EDITÁVEL VISÍVEL (SEM BOTÕES DE DITADO) --- */}
+      {/* --- FORMULÁRIO EDITÁVEL VISÍVEL --- */}
       <div className="results-container">
         <h2>Laudo Estruturado</h2>
         <form onSubmit={(e) => e.preventDefault()} className="laudo-form">
